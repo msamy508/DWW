@@ -216,4 +216,88 @@ if (!document.getElementById('accessibility-styles')) {
     document.head.appendChild(style);
 }
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    // إضافة زر القائمة المتنقلة إذا لم يكن موجوداً
+    const addMobileMenuButton = function() {
+        const navContainer = document.querySelector('.nav-container');
+        const navLinks = document.querySelector('.nav-links');
+        let menuBtn = document.querySelector('.mobile-menu-btn');
+        
+        // إنشاء زر القائمة فقط إذا لم يكن موجوداً وكنا على شاشة صغيرة
+        if (!menuBtn && window.innerWidth <= 768) {
+            menuBtn = document.createElement('button');
+            menuBtn.className = 'mobile-menu-btn';
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.setAttribute('aria-controls', 'nav-links');
+            menuBtn.setAttribute('aria-label', 'Toggle navigation menu');
+            menuBtn.innerHTML = '<span class="menu-icon" aria-hidden="true">☰</span>';
+            
+            // أضف أنماط CSS مباشرة للزر
+            menuBtn.style.cssText = `
+                background: none;
+                border: none;
+                font-size: 1.75rem;
+                cursor: pointer;
+                color: var(--text-dark);
+                display: block;
+                padding: 0.5rem;
+            `;
+            
+            // أضف الزر إلى حاوية القائمة
+            navContainer.appendChild(menuBtn);
+            
+            // إخفاء القائمة الرئيسية مبدئياً على الأجهزة المحمولة
+            navLinks.style.display = 'none';
+            
+            // إعداد موضع القائمة لتظهر بشكل صحيح
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = 'white';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.padding = '1rem';
+            navLinks.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+            navLinks.style.zIndex = '1000';
+            
+            // إضافة مستمع حدث للزر
+            menuBtn.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                
+                if (!expanded) {
+                    // إذا كانت القائمة مغلقة، افتحها
+                    navLinks.style.display = 'flex';
+                    // تغيير أيقونة القائمة إلى X
+                    this.querySelector('.menu-icon').innerHTML = '✕';
+                } else {
+                    // إذا كانت القائمة مفتوحة، أغلقها
+                    navLinks.style.display = 'none';
+                    // إعادة أيقونة القائمة إلى الهامبرغر
+                    this.querySelector('.menu-icon').innerHTML = '☰';
+                }
+            });
+        } else if (window.innerWidth > 768) {
+            // إعادة ضبط أنماط القائمة على الشاشات الكبيرة
+            navLinks.style.display = 'flex';
+            navLinks.style.position = 'static';
+            navLinks.style.flexDirection = 'row';
+            navLinks.style.padding = '0';
+            navLinks.style.boxShadow = 'none';
+            
+            // إزالة زر القائمة المتنقلة إذا كان موجوداً
+            if (menuBtn) {
+                menuBtn.remove();
+            }
+        }
+    };
+    
+    // تشغيل الوظيفة عند تحميل الصفحة
+    addMobileMenuButton();
+    
+    // تشغيل الوظيفة عند تغيير حجم النافذة
+    window.addEventListener('resize', addMobileMenuButton);
+});
+
 console.log('🐉 Doha Wireless Warriors - Website Loaded Successfully!');
