@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press & Media - Doha Wireless Warriors</title>
+    <link rel="stylesheet" href="styles-modern.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for press page */
+        .press-hero {
+            min-height: 50vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff1493 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px 60px;
+        }
+        
+        .press-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        
+        .press-hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+        
+        .press-content {
+            padding: 80px 20px;
+        }
+        
+        .press-grid {
+            display: grid;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .press-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .press-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .press-item-header {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 25px 30px;
+        }
+        
+        .press-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .press-item-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .press-item-content {
+            padding: 30px;
+        }
+        
+        .press-item-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .press-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 25px;
+            background: var(--gray-50);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .press-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .press-video {
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .press-video iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="Doha Wireless Warriors Logo" class="logo-image">
+                <span class="logo-text">Doha Wireless Warriors</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#story">Our Story</a>
+                <a href="index.html#join">Join Us</a>
+                <a href="press.html">Press</a>
+                <a href="index.html#contact" class="btn-contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="press-hero">
+        <div class="container">
+            <h1>📰 Press & Media</h1>
+            <p>Our story in the news - spreading awareness and inspiration</p>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </section>
+
+    <!-- Press Content -->
+    <section class="press-content">
+        <div class="press-grid">
+            <!-- Al Jazeera Interview 2021 -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📅 October 21, 2021</div>
+                    <h3>Al Jazeera Interview with Sandee Thompson</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>Founder Sandee Thompson shares the inspiring story of the Doha Wireless Warriors and how dragon boating helps cancer survivors regain strength and confidence.</p>
+                    <a href="https://mediaview.aljazeera.com/video/fwJ4PqJltM" target="_blank" class="press-link">
+                        <i class="fas fa-play-circle"></i> Watch Interview
+                    </a>
+                </div>
+            </div>
+
+            <!-- February 2019 Practice -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📅 February 23, 2019</div>
+                    <h3>Training Session Feature</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>A day in the life of the Doha Wireless Warriors - from warm-up exercises to guided meditation and proper cool-down. See how the team trains and supports each other.</p>
+                    <a href="https://mediaview.aljazeera.com/video/fwJ4PqJltM" target="_blank" class="press-link">
+                        <i class="fas fa-play-circle"></i> Watch Video
+                    </a>
+                </div>
+            </div>
+
+            <!-- Al Jazeera 2017 -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📅 February 4, 2017</div>
+                    <h3>International Cancer Awareness Day Feature</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>On International Cancer Awareness Day, the team was featured on Al Jazeera to bring awareness to breast cancer and the health benefits of dragon boating for survivors.</p>
+                    <a href="https://mediaview.aljazeera.com/video/fwJ4PqJltM" target="_blank" class="press-link">
+                        <i class="fas fa-play-circle"></i> Watch Feature
+                    </a>
+                </div>
+            </div>
+
+            <!-- IBCPC Newsletter -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📰 International Breast Cancer Paddlers' Commission</div>
+                    <h3>Qatar Team Doubles Its Size</h3>
+                </div>
+                <div class="press-item-content">
+                    <p><em>"We are coming up on our two-year anniversary this November and we have grown to more than double the size."</em></p>
+                    <p>Featured in the IBCPC Newsletter by Qatar Coach Sandee Thompson, highlighting the team's remarkable growth and impact.</p>
+                    <a href="https://www.dww.qa/_files/ugd/ebeedf_3102aa228b9a4123a94e3d400b8a2a29.pdf" target="_blank" class="press-link">
+                        <i class="fas fa-file-pdf"></i> Read Newsletter
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hot & Healthy Interview -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📺 YouTube Feature</div>
+                    <h3>Hot & Healthy with Nicole van Hattem</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>Marlene Janse van Vuuren and Sandee Thompson discuss health, wellness, and the transformative power of dragon boating for cancer survivors.</p>
+                    <a href="https://www.youtube.com/channel/UCvSeCEa-u8PDcxXzTXOsJaA" target="_blank" class="press-link">
+                        <i class="fab fa-youtube"></i> Watch on YouTube
+                    </a>
+                </div>
+            </div>
+
+            <!-- 20 Years IBCPC -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">🎉 Celebrating Breast Cancer Paddling</div>
+                    <h3>International Breast Cancer Paddlers' Commission - 20 Years</h3>
+                </div>
+                <div class="press-item-content">
+                    <p><em>"Dragon boating was my 'gift to me' when I was diagnosed with breast cancer 5 years ago and it was very meditative. As soon as the first boat was brought to Doha, I knew I wanted to get a team together."</em></p>
+                    <p>- Sandee Thompson, Founder</p>
+                    <a href="http://www.ibcpc.com/20years/index.html#p=112" target="_blank" class="press-link">
+                        <i class="fas fa-book-open"></i> Read Full Story
+                    </a>
+                </div>
+            </div>
+
+            <!-- Qatar Living Interview -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">💬 Qatar Living</div>
+                    <h3>Sana Khan Interviews Sandee Thompson</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>An in-depth conversation about the founding of the Doha Wireless Warriors, the challenges faced, and the incredible community that has been built.</p>
+                    <a href="http://www.qatarliving.com/user/sana-khan" target="_blank" class="press-link">
+                        <i class="fas fa-external-link-alt"></i> Read Interview
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hamad Medical Corporation -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">📅 October 13, 2015</div>
+                    <h3>Hamad Medical Corporation Feature</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>Recognition from Hamad Medical Corporation for promoting health and wellness among cancer survivors through dragon boating.</p>
+                </div>
+            </div>
+
+            <!-- Sports Day Awareness -->
+            <div class="press-item">
+                <div class="press-item-header">
+                    <div class="press-date">🏅 Sports Day Qatar</div>
+                    <h3>Nashwa - Awareness Newsletter</h3>
+                </div>
+                <div class="press-item-content">
+                    <p>Featured in the Nashwa awareness newsletter during Qatar's Sports Day, highlighting the importance of physical activity for cancer survivors.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Want to Feature Our Story?</h2>
+                <p>We're always happy to share our journey and inspire others. Get in touch with us for media inquiries.</p>
+                <a href="index.html#contact" class="btn btn-large">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Doha Wireless Warriors</h3>
+                    <p>Qatar's dragon boat team for cancer survivors and supporters since 2014.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/DohaWirelessWarriors/" target="_blank" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://www.instagram.com/dww.qa/" target="_blank" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCKDkIocTtRxrSDqVoDCZFuA" target="_blank" class="social-link" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#story">Our Story</a></li>
+                        <li><a href="index.html#join">Join the Team</a></li>
+                        <li><a href="press.html">Press & Media</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Get Involved</h4>
+                    <p><strong>📍 Location:</strong><br>Katara Beach, Doha, Qatar</p>
+                    <p><strong>📞 Phone:</strong><br><a href="tel:+97455297518" style="color: #e2e8f0; text-decoration: none;">(+974) 5529 7518</a></p>
+                    <p><strong>🕒 Training Hours:</strong><br>
+                    Wed: 3:30-5:00 PM<br>
+                    Fri & Sat: 8:00 AM-9:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Doha Wireless Warriors. All rights reserved. | Made with 💗 in Qatar</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
