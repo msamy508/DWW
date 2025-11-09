@@ -95,19 +95,22 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Mobile menu toggle (if you add a hamburger menu later)
-const createMobileMenu = () => {
+// Mobile menu toggle
+const setupMobileMenu = () => {
     const nav = document.querySelector('.nav-links');
     const navContainer = document.querySelector('.nav-container');
+    const menuBtn = document.querySelector('.mobile-menu-btn');
     
     if (window.innerWidth <= 768) {
-        // Add mobile menu button
-        let menuBtn = document.querySelector('.mobile-menu-btn');
+        // Make sure mobile menu button exists
         if (!menuBtn) {
-            menuBtn = document.createElement('button');
-            menuBtn.className = 'mobile-menu-btn';
-            menuBtn.innerHTML = '☰';
-            menuBtn.style.cssText = `
+            const newMenuBtn = document.createElement('button');
+            newMenuBtn.className = 'mobile-menu-btn';
+            newMenuBtn.setAttribute('aria-expanded', 'false');
+            newMenuBtn.setAttribute('aria-controls', 'nav-links');
+            newMenuBtn.setAttribute('aria-label', 'Toggle navigation menu');
+            newMenuBtn.innerHTML = '<span class="menu-icon" aria-hidden="true">☰</span>';
+            newMenuBtn.style.cssText = `
                 background: none;
                 border: none;
                 font-size: 1.75rem;
@@ -115,41 +118,73 @@ const createMobileMenu = () => {
                 color: var(--text-dark);
                 display: block;
             `;
-            navContainer.appendChild(menuBtn);
+            navContainer.appendChild(newMenuBtn);
             
-            menuBtn.addEventListener('click', () => {
-                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-                nav.style.position = 'absolute';
-                nav.style.top = '100%';
-                nav.style.left = '0';
-                nav.style.right = '0';
-                nav.style.background = 'white';
-                nav.style.flexDirection = 'column';
-                nav.style.padding = '1rem';
-                nav.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-            });
+            // Set up event listener for the new button
+            setupMenuButtonListener(newMenuBtn, nav);
         }
+        
+        // Make sure nav is initially hidden on mobile
+        nav.style.display = 'none';
+        nav.style.position = 'absolute';
+        nav.style.top = '100%';
+        nav.style.left = '0';
+        nav.style.right = '0';
+        nav.style.background = 'white';
+        nav.style.flexDirection = 'column';
+        nav.style.padding = '1rem';
+        nav.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+        nav.style.zIndex = '1000';
+    } else {
+        // Reset nav styles for desktop
+        nav.style.display = 'flex';
+        nav.style.position = 'static';
+        nav.style.flexDirection = '';
+        nav.style.padding = '';
+        nav.style.boxShadow = '';
     }
 };
 
+// Set up event listener for menu button
+const setupMenuButtonListener = (menuBtn, nav) => {
+    menuBtn.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', !expanded);
+        
+        if (!expanded) {
+            nav.style.display = 'flex';
+        } else {
+            nav.style.display = 'none';
+        }
+    });
+};
+
 // Initialize mobile menu on load and resize
-createMobileMenu();
-window.addEventListener('resize', createMobileMenu);
+setupMobileMenu();
+window.addEventListener('resize', setupMobileMenu);
 
 // FAQ Accordion functionality
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const faqItem = button.parentElement;
+        const faqAnswer = button.nextElementSibling;
         const isActive = faqItem.classList.contains('active');
         
         // Close all FAQ items
         document.querySelectorAll('.faq-item').forEach(item => {
+            const itemButton = item.querySelector('.faq-question');
+            const itemAnswer = item.querySelector('.faq-answer');
+            
             item.classList.remove('active');
+            itemButton.setAttribute('aria-expanded', 'false');
+            itemAnswer.setAttribute('hidden', '');
         });
         
         // Open clicked item if it wasn't active
         if (!isActive) {
             faqItem.classList.add('active');
+            button.setAttribute('aria-expanded', 'true');
+            faqAnswer.removeAttribute('hidden');
         }
     });
 });
@@ -161,6 +196,24 @@ if (whatsappBtn) {
     whatsappBtn.addEventListener('click', () => {
         console.log('WhatsApp button clicked');
     });
+}
+
+// Add visually-hidden style for screen readers
+if (!document.getElementById('accessibility-styles')) {
+    const style = document.createElement('style');
+    style.id = 'accessibility-styles';
+    style.textContent = `
+        .visually-hidden {
+            clip: rect(0 0 0 0);
+            clip-path: inset(50%);
+            height: 1px;
+            overflow: hidden;
+            position: absolute;
+            white-space: nowrap;
+            width: 1px;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 console.log('🐉 Doha Wireless Warriors - Website Loaded Successfully!');
