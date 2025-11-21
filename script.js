@@ -1,9 +1,19 @@
-// Smooth scrolling for navigation links
+// ==================== SMOOTH SCROLLING ====================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
+            // Close mobile menu if open
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            if (navLinks && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                if (menuBtn) {
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -12,7 +22,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Navbar background on scroll
+// ==================== NAVBAR BACKGROUND ON SCROLL ====================
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
@@ -22,7 +32,61 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Fade in elements on scroll
+// ==================== MOBILE MENU TOGGLE ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (menuBtn && navLinks) {
+        // Toggle menu on button click
+        menuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            this.setAttribute('aria-expanded', !isExpanded);
+            navLinks.classList.toggle('active');
+            
+            // Prevent body scroll when menu is open
+            if (!isExpanded) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navLinks.contains(e.target) && !menuBtn.contains(e.target)) {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+        
+        // Close menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when pressing Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+                menuBtn.focus();
+            }
+        });
+    }
+});
+
+// ==================== FADE IN ELEMENTS ON SCROLL ====================
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -38,14 +102,14 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe all cards and sections
-document.querySelectorAll('.feature-card, .benefit-card, .testimonial-card, .gallery-item').forEach(el => {
+document.querySelectorAll('.feature-card, .benefit-card, .testimonial-card, .gallery-item, .achievement-card, .press-item').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
     observer.observe(el);
 });
 
-// Counter animation for stats
+// ==================== COUNTER ANIMATION ====================
 const animateCounter = (element, target, duration = 2000) => {
     let start = 0;
     const increment = target / (duration / 16);
@@ -86,7 +150,7 @@ if (heroStats) {
     statsObserver.observe(heroStats);
 }
 
-// Add parallax effect to hero section
+// ==================== PARALLAX EFFECT ====================
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const hero = document.querySelector('.hero');
@@ -95,75 +159,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Mobile menu toggle
-const setupMobileMenu = () => {
-    const nav = document.querySelector('.nav-links');
-    const navContainer = document.querySelector('.nav-container');
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    
-    if (window.innerWidth <= 768) {
-        // Make sure mobile menu button exists
-        if (!menuBtn) {
-            const newMenuBtn = document.createElement('button');
-            newMenuBtn.className = 'mobile-menu-btn';
-            newMenuBtn.setAttribute('aria-expanded', 'false');
-            newMenuBtn.setAttribute('aria-controls', 'nav-links');
-            newMenuBtn.setAttribute('aria-label', 'Toggle navigation menu');
-            newMenuBtn.innerHTML = '<span class="menu-icon" aria-hidden="true">☰</span>';
-            newMenuBtn.style.cssText = `
-                background: none;
-                border: none;
-                font-size: 1.75rem;
-                cursor: pointer;
-                color: var(--text-dark);
-                display: block;
-            `;
-            navContainer.appendChild(newMenuBtn);
-            
-            // Set up event listener for the new button
-            setupMenuButtonListener(newMenuBtn, nav);
-        }
-        
-        // Make sure nav is initially hidden on mobile
-        nav.style.display = 'none';
-        nav.style.position = 'absolute';
-        nav.style.top = '100%';
-        nav.style.left = '0';
-        nav.style.right = '0';
-        nav.style.background = 'white';
-        nav.style.flexDirection = 'column';
-        nav.style.padding = '1rem';
-        nav.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-        nav.style.zIndex = '1000';
-    } else {
-        // Reset nav styles for desktop
-        nav.style.display = 'flex';
-        nav.style.position = 'static';
-        nav.style.flexDirection = '';
-        nav.style.padding = '';
-        nav.style.boxShadow = '';
-    }
-};
-
-// Set up event listener for menu button
-const setupMenuButtonListener = (menuBtn, nav) => {
-    menuBtn.addEventListener('click', () => {
-        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-        menuBtn.setAttribute('aria-expanded', !expanded);
-        
-        if (!expanded) {
-            nav.style.display = 'flex';
-        } else {
-            nav.style.display = 'none';
-        }
-    });
-};
-
-// Initialize mobile menu on load and resize
-setupMobileMenu();
-window.addEventListener('resize', setupMobileMenu);
-
-// FAQ Accordion functionality
+// ==================== FAQ ACCORDION ====================
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const faqItem = button.parentElement;
@@ -189,16 +185,15 @@ document.querySelectorAll('.faq-question').forEach(button => {
     });
 });
 
-// Add smooth scroll behavior for WhatsApp button
+// ==================== WHATSAPP BUTTON ====================
 const whatsappBtn = document.querySelector('.whatsapp-float');
 if (whatsappBtn) {
-    // Optional: Add click analytics or tracking here
     whatsappBtn.addEventListener('click', () => {
         console.log('WhatsApp button clicked');
     });
 }
 
-// Add visually-hidden style for screen readers
+// ==================== ACCESSIBILITY STYLES ====================
 if (!document.getElementById('accessibility-styles')) {
     const style = document.createElement('style');
     style.id = 'accessibility-styles';
@@ -216,88 +211,6 @@ if (!document.getElementById('accessibility-styles')) {
     document.head.appendChild(style);
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    // إضافة زر القائمة المتنقلة إذا لم يكن موجوداً
-    const addMobileMenuButton = function() {
-        const navContainer = document.querySelector('.nav-container');
-        const navLinks = document.querySelector('.nav-links');
-        let menuBtn = document.querySelector('.mobile-menu-btn');
-        
-        // إنشاء زر القائمة فقط إذا لم يكن موجوداً وكنا على شاشة صغيرة
-        if (!menuBtn && window.innerWidth <= 768) {
-            menuBtn = document.createElement('button');
-            menuBtn.className = 'mobile-menu-btn';
-            menuBtn.setAttribute('aria-expanded', 'false');
-            menuBtn.setAttribute('aria-controls', 'nav-links');
-            menuBtn.setAttribute('aria-label', 'Toggle navigation menu');
-            menuBtn.innerHTML = '<span class="menu-icon" aria-hidden="true">☰</span>';
-            
-            // أضف أنماط CSS مباشرة للزر
-            menuBtn.style.cssText = `
-                background: none;
-                border: none;
-                font-size: 1.75rem;
-                cursor: pointer;
-                color: var(--text-dark);
-                display: block;
-                padding: 0.5rem;
-            `;
-            
-            // أضف الزر إلى حاوية القائمة
-            navContainer.appendChild(menuBtn);
-            
-            // إخفاء القائمة الرئيسية مبدئياً على الأجهزة المحمولة
-            navLinks.style.display = 'none';
-            
-            // إعداد موضع القائمة لتظهر بشكل صحيح
-            navLinks.style.position = 'absolute';
-            navLinks.style.top = '100%';
-            navLinks.style.left = '0';
-            navLinks.style.right = '0';
-            navLinks.style.background = 'white';
-            navLinks.style.flexDirection = 'column';
-            navLinks.style.padding = '1rem';
-            navLinks.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
-            navLinks.style.zIndex = '1000';
-            
-            // إضافة مستمع حدث للزر
-            menuBtn.addEventListener('click', function() {
-                const expanded = this.getAttribute('aria-expanded') === 'true';
-                this.setAttribute('aria-expanded', !expanded);
-                
-                if (!expanded) {
-                    // إذا كانت القائمة مغلقة، افتحها
-                    navLinks.style.display = 'flex';
-                    // تغيير أيقونة القائمة إلى X
-                    this.querySelector('.menu-icon').innerHTML = '✕';
-                } else {
-                    // إذا كانت القائمة مفتوحة، أغلقها
-                    navLinks.style.display = 'none';
-                    // إعادة أيقونة القائمة إلى الهامبرغر
-                    this.querySelector('.menu-icon').innerHTML = '☰';
-                }
-            });
-        } else if (window.innerWidth > 768) {
-            // إعادة ضبط أنماط القائمة على الشاشات الكبيرة
-            navLinks.style.display = 'flex';
-            navLinks.style.position = 'static';
-            navLinks.style.flexDirection = 'row';
-            navLinks.style.padding = '0';
-            navLinks.style.boxShadow = 'none';
-            
-            // إزالة زر القائمة المتنقلة إذا كان موجوداً
-            if (menuBtn) {
-                menuBtn.remove();
-            }
-        }
-    };
-    
-    // تشغيل الوظيفة عند تحميل الصفحة
-    addMobileMenuButton();
-    
-    // تشغيل الوظيفة عند تغيير حجم النافذة
-    window.addEventListener('resize', addMobileMenuButton);
-});
-
+// ==================== SUCCESS MESSAGE ====================
 console.log('🐉 Doha Wireless Warriors - Website Loaded Successfully!');
+console.log('📱 Mobile menu is ready and responsive!');
