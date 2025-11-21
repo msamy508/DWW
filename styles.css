@@ -7,7 +7,7 @@
     --accent: #667eea;
     --text-dark: #2d3748;
     --text-light: #718096;
-    --text-light-contrast: #4a5568; /* Darker version for better contrast */
+    --text-light-contrast: #4a5568;
     --white: #ffffff;
     --gray-50: #f7fafc;
     --gray-100: #edf2f7;
@@ -66,6 +66,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .logo {
@@ -75,6 +76,7 @@ body {
     font-weight: 700;
     font-size: 1.25rem;
     color: var(--text-dark);
+    z-index: 1001;
 }
 
 .logo-image {
@@ -85,6 +87,72 @@ body {
 
 .logo-icon {
     font-size: 1.75rem;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+
+.mobile-menu-btn:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.menu-icon {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: var(--text-dark);
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 3px;
+    background: var(--text-dark);
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    left: 0;
+}
+
+.menu-icon::before {
+    top: -9px;
+}
+
+.menu-icon::after {
+    bottom: -9px;
+}
+
+/* Animate to X when menu is open */
+.mobile-menu-btn[aria-expanded="true"] .menu-icon {
+    background: transparent;
+}
+
+.mobile-menu-btn[aria-expanded="true"] .menu-icon::before {
+    top: 0;
+    transform: rotate(45deg);
+    background: var(--primary);
+}
+
+.mobile-menu-btn[aria-expanded="true"] .menu-icon::after {
+    bottom: 0;
+    transform: rotate(-45deg);
+    background: var(--primary);
 }
 
 .nav-links {
@@ -98,6 +166,22 @@ body {
     color: var(--text-dark);
     font-weight: 500;
     transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .nav-links a:hover {
@@ -110,9 +194,12 @@ body {
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    /* Add text shadow for better contrast on gradient background */
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     font-weight: 600;
+}
+
+.btn-contact::after {
+    display: none;
 }
 
 .btn-contact:hover {
@@ -162,15 +249,15 @@ body {
 
 .hero-badge {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.3); /* Increased opacity for better contrast */
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
     font-size: 0.9rem;
-    font-weight: 700; /* Increased weight for better visibility */
+    font-weight: 700;
     margin-bottom: 2rem;
-    border: 1px solid rgba(255, 255, 255, 0.5); /* Increased opacity for better visibility */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for readability */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .hero-title {
@@ -178,7 +265,7 @@ body {
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 1.5rem;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Increased shadow for better contrast */
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .gradient-text {
@@ -186,15 +273,15 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); /* Added drop shadow for better contrast */
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 3rem;
-    opacity: 1; /* Changed from 0.95 to 1 for better visibility */
-    font-weight: 400; /* Increased from 300 for better readability */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Added text shadow for better contrast */
+    opacity: 1;
+    font-weight: 400;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .hero-buttons {
@@ -217,7 +304,7 @@ body {
 .btn-primary {
     background: var(--white);
     color: var(--primary);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
@@ -229,8 +316,8 @@ body {
     background: transparent;
     color: var(--white);
     border-color: var(--white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-secondary:hover {
@@ -252,16 +339,16 @@ body {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 0.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Added text shadow for better contrast */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .stat-label {
     font-size: 0.9rem;
-    opacity: 1; /* Changed from 0.9 to 1 for better visibility */
+    opacity: 1;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
-    font-weight: 600; /* Increased from default for better visibility */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
 }
 
 .scroll-indicator {
@@ -273,7 +360,7 @@ body {
     color: var(--white);
     font-size: 0.9rem;
     animation: bounce 2s infinite;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .scroll-arrow {
@@ -293,32 +380,32 @@ section {
 
 .section-badge {
     display: inline-block;
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: var(--white);
     padding: 0.5rem 1.5rem;
     border-radius: 50px;
     font-size: 0.875rem;
-    font-weight: 700; /* Increased from 600 for better visibility */
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .section-title {
     font-size: 3rem;
     font-weight: 800;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2)); /* Added drop shadow for better visibility */
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 
 .section-subtitle {
     font-size: 1.25rem;
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -362,7 +449,7 @@ section {
 }
 
 .feature-card p {
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     line-height: 1.7;
 }
 
@@ -376,7 +463,7 @@ section {
 
 .story-text {
     font-size: 1.125rem;
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     margin: 1.5rem 0;
 }
 
@@ -394,7 +481,7 @@ section {
 }
 
 .list-icon {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: var(--white);
     width: 24px;
     height: 24px;
@@ -408,7 +495,7 @@ section {
 }
 
 .story-quote {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: var(--white);
     padding: 2rem;
     border-radius: var(--radius-lg);
@@ -431,11 +518,11 @@ section {
     font-size: 1.25rem;
     font-style: italic;
     margin-top: 1rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .story-image .image-placeholder {
-    background: linear-gradient(135deg, var(--primary-dark), var(--accent)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--accent));
     border-radius: var(--radius-lg);
     aspect-ratio: 4/5;
     display: flex;
@@ -477,15 +564,15 @@ section {
     left: 0;
     right: 0;
     height: 5px;
-    background: linear-gradient(90deg, var(--primary-dark), var(--accent)); /* Darker gradient for better contrast */
+    background: linear-gradient(90deg, var(--primary-dark), var(--accent));
 }
 
 .achievement-card.gold::before {
-    background: linear-gradient(90deg, #d4af37, #ffed4e); /* Darker gold for better contrast */
+    background: linear-gradient(90deg, #d4af37, #ffed4e);
 }
 
 .achievement-card.silver::before {
-    background: linear-gradient(90deg, #a9a9a9, #e8e8e8); /* Darker silver for better contrast */
+    background: linear-gradient(90deg, #a9a9a9, #e8e8e8);
 }
 
 .achievement-card:hover {
@@ -508,18 +595,18 @@ section {
 
 .achievement-event {
     font-size: 1.125rem;
-    color: var(--primary-dark); /* Darker color for better contrast */
+    color: var(--primary-dark);
     font-weight: 600;
     margin-bottom: 1rem;
 }
 
 .achievement-desc {
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     line-height: 1.7;
 }
 
 .achievements-highlight {
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
     color: var(--white);
     padding: 3rem;
     border-radius: var(--radius-lg);
@@ -532,13 +619,13 @@ section {
     font-style: italic;
     margin-bottom: 1rem;
     line-height: 1.5;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .achievements-highlight p {
     font-size: 1.125rem;
-    opacity: 1; /* Changed from 0.95 to 1 for better visibility */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    opacity: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* ==================== BENEFITS SECTION ==================== */
@@ -577,7 +664,7 @@ section {
 }
 
 .benefit-card p {
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     line-height: 1.7;
 }
 
@@ -604,7 +691,7 @@ section {
 }
 
 .gallery-item .image-placeholder {
-    background: linear-gradient(135deg, var(--accent), var(--secondary)); /* Using existing colors for consistency */
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
     aspect-ratio: 1;
     display: flex;
     flex-direction: column;
@@ -612,7 +699,7 @@ section {
     justify-content: center;
     color: var(--white);
     height: 100%;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-item.large .image-placeholder {
@@ -645,7 +732,7 @@ section {
 
 .testimonial-quote {
     font-size: 4rem;
-    color: var(--primary-dark); /* Darker color for better contrast */
+    color: var(--primary-dark);
     opacity: 0.3;
     line-height: 1;
     margin-bottom: 1rem;
@@ -667,7 +754,7 @@ section {
 .author-avatar {
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -682,12 +769,12 @@ section {
 
 .author-role {
     font-size: 0.875rem;
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
 }
 
 /* ==================== JOIN SECTION ==================== */
 .join-section {
-    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
     color: var(--white);
 }
 
@@ -700,14 +787,14 @@ section {
 .join-content h2 {
     font-size: 3rem;
     margin-bottom: 1.5rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .join-content > p {
     font-size: 1.25rem;
     margin-bottom: 3rem;
-    opacity: 1; /* Changed from 0.95 to 1 for better visibility */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    opacity: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .join-info {
@@ -722,11 +809,11 @@ section {
     align-items: flex-start;
     gap: 1rem;
     text-align: left;
-    background: rgba(255, 255, 255, 0.15); /* Increased opacity for better contrast */
+    background: rgba(255, 255, 255, 0.15);
     padding: 1.5rem;
     border-radius: var(--radius-md);
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .info-icon {
@@ -737,21 +824,21 @@ section {
 .info-item h4 {
     font-size: 1.125rem;
     margin-bottom: 0.5rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .info-item p {
     font-size: 0.9rem;
-    opacity: 1; /* Changed from 0.9 to 1 for better visibility */
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2); /* Subtle text shadow for readability */
+    opacity: 1;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .btn-large {
     padding: 1.25rem 3rem;
     font-size: 1.125rem;
     background: var(--white);
-    color: var(--primary-dark); /* Using darker color for better contrast */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+    color: var(--primary-dark);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-large:hover {
@@ -768,27 +855,27 @@ section {
 .cta-content h2 {
     font-size: 3rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, var(--primary-dark), var(--secondary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2)); /* Added drop shadow for better visibility */
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 
 .cta-answer {
     font-size: 4rem;
     font-weight: 800;
-    background: linear-gradient(135deg, var(--primary-dark), var(--accent)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)); /* Added drop shadow for better visibility */
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
     margin-bottom: 1.5rem;
 }
 
 .cta-content p {
     font-size: 1.25rem;
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
 }
 
 /* ==================== FAQ SECTION ==================== */
@@ -838,7 +925,7 @@ section {
 .faq-icon {
     font-size: 1.5rem;
     font-weight: 300;
-    color: var(--primary-dark); /* Darker color for better contrast */
+    color: var(--primary-dark);
     transition: transform 0.3s ease;
     flex-shrink: 0;
     margin-left: 1rem;
@@ -860,7 +947,7 @@ section {
 }
 
 .faq-answer p {
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     line-height: 1.8;
     font-size: 1.05rem;
 }
@@ -887,14 +974,14 @@ section {
     right: 30px;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #128C7E, #075E54); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, #128C7E, #075E54);
     color: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2rem;
-    box-shadow: 0 4px 20px rgba(19, 114, 76, 0.6); /* Adjusted shadow color for better visibility */
+    box-shadow: 0 4px 20px rgba(19, 114, 76, 0.6);
     z-index: 999;
     transition: all 0.3s ease;
     animation: pulse 2s infinite;
@@ -902,15 +989,15 @@ section {
 
 .whatsapp-float:hover {
     transform: scale(1.1) translateY(-5px);
-    box-shadow: 0 8px 30px rgba(19, 114, 76, 0.8); /* Adjusted shadow color for better visibility */
+    box-shadow: 0 8px 30px rgba(19, 114, 76, 0.8);
 }
 
 @keyframes pulse {
     0%, 100% {
-        box-shadow: 0 4px 20px rgba(19, 114, 76, 0.6); /* Adjusted shadow color for better visibility */
+        box-shadow: 0 4px 20px rgba(19, 114, 76, 0.6);
     }
     50% {
-        box-shadow: 0 4px 30px rgba(19, 114, 76, 0.9); /* Adjusted shadow color for better visibility */
+        box-shadow: 0 4px 30px rgba(19, 114, 76, 0.9);
     }
 }
 
@@ -979,20 +1066,20 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.15); /* Increased opacity for better contrast */
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .social-link:hover {
     color: var(--primary-light);
-    background: rgba(255, 255, 255, 0.25); /* Increased opacity for better contrast */
+    background: rgba(255, 255, 255, 0.25);
     transform: translateY(-3px);
 }
 
 .btn-footer {
     padding: 0.75rem 2rem;
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: var(--white);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .btn-footer:hover {
@@ -1002,7 +1089,7 @@ section {
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Increased opacity for better contrast */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--gray-200);
 }
 
@@ -1029,8 +1116,51 @@ section {
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
+    /* Show mobile menu button */
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    /* Hide navigation links by default on mobile */
     .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 2rem;
+        gap: 0;
+        transition: left 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+    }
+    
+    /* Show menu when active */
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links a {
+        width: 100%;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--gray-200);
+        font-size: 1.125rem;
+        display: block;
+    }
+    
+    .nav-links a::after {
         display: none;
+    }
+    
+    .btn-contact {
+        margin-top: 1rem;
+        text-align: center;
+        display: block;
+        border-bottom: none;
     }
     
     .hero-title {
@@ -1103,10 +1233,13 @@ section {
     .achievements-highlight h3 {
         font-size: 1.5rem;
     }
+    
+    .nav-container {
+        padding: 1rem 1.5rem;
+    }
 }
 
 /* ==================== SKIP NAVIGATION ==================== */
-/* This is for keyboard navigation accessibility */
 .skip-to-content {
     position: absolute;
     left: -9999px;
@@ -1126,7 +1259,7 @@ section {
     top: 0;
 }
 
-/* Press page specific styles (moved from inline) */
+/* Press page specific styles */
 .press-hero {
     min-height: 50vh;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff1493 100%);
@@ -1142,13 +1275,13 @@ section {
     font-size: 3.5rem;
     font-weight: 800;
     margin-bottom: 1rem;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Added text shadow for better contrast */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .press-hero p {
     font-size: 1.3rem;
-    opacity: 1; /* Changed from 0.95 to 1 for better visibility */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    opacity: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .press-content {
@@ -1176,22 +1309,22 @@ section {
 }
 
 .press-item-header {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary)); /* Darker gradient for better contrast */
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: white;
     padding: 25px 30px;
 }
 
 .press-date {
     font-size: 0.9rem;
-    opacity: 1; /* Changed from 0.9 to 1 for better visibility */
+    opacity: 1;
     margin-bottom: 10px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .press-item-header h3 {
     font-size: 1.5rem;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .press-item-content {
@@ -1199,7 +1332,7 @@ section {
 }
 
 .press-item-content p {
-    color: var(--text-light-contrast); /* Using darker text color for better contrast */
+    color: var(--text-light-contrast);
     line-height: 1.8;
     margin-bottom: 20px;
 }
@@ -1208,7 +1341,7 @@ section {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--primary-dark); /* Darker color for better contrast */
+    color: var(--primary-dark);
     text-decoration: none;
     font-weight: 600;
     padding: 12px 25px;
@@ -1243,14 +1376,24 @@ section {
     text-decoration: none;
     font-weight: 600;
     padding: 12px 25px;
-    background: rgba(255,255,255,0.25); /* Increased opacity for better contrast */
+    background: rgba(255,255,255,0.25);
     border-radius: 50px;
     transition: all 0.3s ease;
     margin-top: 20px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Added text shadow for better contrast */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .back-link:hover {
-    background: rgba(255,255,255,0.35); /* Increased opacity for better contrast */
+    background: rgba(255,255,255,0.35);
     transform: translateX(-5px);
+}
+
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }
